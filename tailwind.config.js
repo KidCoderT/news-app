@@ -26,7 +26,10 @@ module.exports = {
     fontFamily: {
       'title': ['Fredericka the Great', 'cursive'],
       'body': ['Fredoka One', 'cursive'],
+      'thin': ['Fredoka', 'cursive'],
     }
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }
