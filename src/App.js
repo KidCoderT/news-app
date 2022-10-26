@@ -32,6 +32,7 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === "dark");
   const [selectedCountry, setSelectedCountry] = useState(localStorage.getItem('country') !== null ? localStorage.getItem('country') : countries[0])
   const [selectedOption, setSelectedOption] = useState(localStorage.getItem('option') !== null ? localStorage.getItem('option') : options[0])
+  const [fetchError, setFetchError] = useState(undefined)
 
   const [feed, setFeed] = useState([])
 
@@ -54,6 +55,7 @@ const App = () => {
   }, [darkMode])
 
   let refreshFeed = async () => {
+    setFetchError(undefined)
     setFeed([])
 
     await fetch(
@@ -61,7 +63,14 @@ const App = () => {
       { method: 'GET' }
     )
       .then((data) => {
-        data.json().then(result => setFeed(result.articles))
+        data.json().then(result => {
+          if (result.status === "ok") {
+            setFeed(result.articles)
+          } else {
+            setFetchError("Exceeded Call Amount! (only 100 requests per day!)")
+            setFeed([])
+          }
+        })
       })
     console.log("fetched more data")
   }
@@ -95,7 +104,7 @@ const App = () => {
           <Listbox.Button className="p-2 w-24 rounded-md dark:bg-component-dark-bg mt-2 sm:mt-0  bg-component-light-bg border-2 flex justify-between items-center font-body dark:border-white border-black dark:text-white text-black"><DownIcon /><Country country={selectedCountry} /></Listbox.Button>
           <Listbox.Options className="p-1 z-50 absolute w-[14rem] h-48 scrollbar-thin scrollbar-track-transparent  scrollbar-thumb-gray-700 scrollbar-rounded-md flex flex-wrap border-2 border-black dark:border-white bg-component-light-bg bg-opacity-40 dark:bg-component-dark-bg dark:text-white text-black overflow-y-scroll rounded-md mt-2">
             <div className="absolute w-full h-[210%] top-0 opacity-20 left-0" />
-            {countries.map((country) => (
+            {countries.forEach((country) => (
               <Listbox.Option
                 key={country}
                 value={country}
@@ -113,7 +122,7 @@ const App = () => {
           <Listbox.Button className="p-2 w-fit rounded-md dark:bg-component-dark-bg mt-2 sm:mt-0 bg-component-light-bg border-2 flex items-center font-body dark:border-white border-black dark:text-white text-black"><DownIcon /> <span className="ml-2">{selectedOption.toLocaleUpperCase()}</span></Listbox.Button>
           <Listbox.Options className="p-1 z-50 w-52 h-fit absolute border-2 border-black dark:border-white bg-component-light-bg bg-opacity-40 dark:bg-component-dark-bg dark:text-white text-black rounded-md mt-1">
             {/* <div className="absolute w-full h-[210%] top-0 opacity-20 left-0" /> */}
-            {options.map((option) => (
+            {options.forEach((option) => (
               <Listbox.Option
                 key={option}
                 value={option}
@@ -129,7 +138,7 @@ const App = () => {
 
       {/* the cards */}
       <div className="w-full flex-wrap flex justify-center px-1 my-3 sm:my-5 pt-2" >
-        {feed.map((article, index) => (
+        {(fetchError === undefined) ? feed.forEach((article, index) => (
           <NewsArticle
             author={article.author}
             title={article.title}
@@ -138,7 +147,7 @@ const App = () => {
             url={article.url}
             key={index}
           />
-        ))}
+        )) : (<div className="text-3xl font-body text-center text-red-500 mx-6 mt-5">{fetchError}</div>)}
       </div>
     </div >
   );
