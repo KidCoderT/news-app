@@ -12,14 +12,13 @@ module.exports = {
         'component': {
           'light': {
             'badge': '#C4C4C4',
-            'border': '#878787',
             'bg': '#ECECEC'
           },
           'dark': {
             'badge': '#121212',
-            'border': '#878787',
             'bg': '#5B5B5B'
-          }
+          },
+          'border': '#878787',
         }
       }
     },
