@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Switch } from './components/ToggleSwitch.js';
+import Switch from './components/Switch.js';
 import { Listbox } from '@headlessui/react';
 
 import { AiFillCaretDown as DownIcon } from "react-icons/ai";

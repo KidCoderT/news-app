@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { useSpring, animated } from 'react-spring';
 
-export const defaultProperties = {
+const defaultProperties = {
     dark: {
         circle: {
             r: 9,
@@ -40,7 +40,7 @@ export const defaultProperties = {
 
 let REACT_TOGGLE_DARK_MODE_GLOBAL_ID = 0;
 
-export const Switch = ({
+const Switch = ({
     onChange,
     children,
     checked = false,
@@ -142,3 +142,5 @@ export const Switch = ({
         </animated.svg>
     );
 };
+
+export default Switch
