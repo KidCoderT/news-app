@@ -123,19 +123,19 @@ const App = () => {
   }, [darkMode]);
 
   let refreshFeed = async () => {
-    setFeed([]);
-    setLoading(true);
+    // setFeed([]);
+    // setLoading(true);
 
-    await fetch(
-      `https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=d65aae3dcaa740fd81f972849d16cd04`,
-      { method: "GET" }
-    ).then((data) => {
-      data.json().then((result) => {
-        console.log(result);
-        setFeed(result.articles);
-        setLoading(false);
-      });
-    });
+    // await fetch(
+    //   `https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=d65aae3dcaa740fd81f972849d16cd04`,
+    //   { method: "GET" }
+    // ).then((data) => {
+    //   data.json().then((result) => {
+    //     console.log(result);
+    //     setFeed(result.articles);
+    //     setLoading(false);
+    //   });
+    // });
     console.log("fetched more data");
   };
 
