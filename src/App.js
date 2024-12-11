@@ -12,62 +12,7 @@ import NewsArticle from "./components/NewsArticle.js";
 // todo: make buttons animate
 // todo: make options animate
 
-const countries = [
-  "ae",
-  "ar",
-  "at",
-  "au",
-  "be",
-  "bg",
-  "br",
-  "ca",
-  "ch",
-  "cn",
-  "co",
-  "cu",
-  "cz",
-  "de",
-  "eg",
-  "fr",
-  "gb",
-  "gr",
-  "hk",
-  "hu",
-  "id",
-  "ie",
-  "il",
-  "in",
-  "it",
-  "jp",
-  "kr",
-  "lt",
-  "lv",
-  "ma",
-  "mx",
-  "my",
-  "ng",
-  "nl",
-  "no",
-  "nz",
-  "ph",
-  "pl",
-  "pt",
-  "ro",
-  "rs",
-  "ru",
-  "sa",
-  "se",
-  "sg",
-  "si",
-  "sk",
-  "th",
-  "tr",
-  "tw",
-  "ua",
-  "us",
-  "ve",
-  "za",
-];
+const countries = ["in", "us", "au", "ru", "fr", "gb"];
 const options = [
   "general",
   "entertainment",
@@ -93,7 +38,7 @@ const App = () => {
   const [selectedCountry, setSelectedCountry] = useState(
     localStorage.getItem("country") !== null
       ? localStorage.getItem("country")
-      : "us"
+      : "in"
   );
   const [selectedOption, setSelectedOption] = useState(
     localStorage.getItem("option") !== null
@@ -127,7 +72,7 @@ const App = () => {
     setLoading(true);
 
     await fetch(
-      `https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=d65aae3dcaa740fd81f972849d16cd04`,
+      `https://saurav.tech/NewsAPI/top-headlines/category/${selectedOption}/${selectedCountry}.json`,
       { method: "GET" }
     ).then((data) => {
       data.json().then((result) => {
